@@ -1,38 +1,24 @@
-﻿enum Gender {
-    Female = "Female",
-    Male = "Male",
-    Unspecified = "Unspecified",
-}
-
-enum FitnessProgram {
-    FatLoss = "fat loss",
-    SeniorFitness = "senior fitness",
-    MuscleGain = "muscle gain",
-    PrePostnatalFitness = "pre/postnatal fitness",
-    ContestPreparation = "contest preparation",
-    OverallFitness = "overall fitness",
-}
-
-
-
-interface Client {
-    clientID: string;
-    name: string;
-    DOB: Date;
-    gender: Gender;
-    fitnessProgram: FitnessProgram;
-    contactInfo: string;
-    joinedDate: Date;
-    endingDate: Date;
-    specialHealthNotes?: string;
-    isVIP: boolean;
-}
-
+"use strict";
+var _a, _b;
+var Gender;
+(function (Gender) {
+    Gender["Female"] = "Female";
+    Gender["Male"] = "Male";
+    Gender["Unspecified"] = "Unspecified";
+})(Gender || (Gender = {}));
+var FitnessProgram;
+(function (FitnessProgram) {
+    FitnessProgram["FatLoss"] = "fat loss";
+    FitnessProgram["SeniorFitness"] = "senior fitness";
+    FitnessProgram["MuscleGain"] = "muscle gain";
+    FitnessProgram["PrePostnatalFitness"] = "pre/postnatal fitness";
+    FitnessProgram["ContestPreparation"] = "contest preparation";
+    FitnessProgram["OverallFitness"] = "overall fitness";
+})(FitnessProgram || (FitnessProgram = {}));
 // Client database
-const clients: Client[] = [];
-
+const clients = [];
 // Add client
-function addClient(newClient: Client): void {
+function addClient(newClient) {
     if (clients.some(client => client.clientID === newClient.clientID)) {
         console.error("Client ID must be unique!");
         return;
@@ -41,28 +27,24 @@ function addClient(newClient: Client): void {
     console.log("Client added successfully!");
     displayClientsInUI();
 }
-
 // Display client
-function displayClientsInUI(): void {
+function displayClientsInUI() {
     const clientList = document.getElementById("clientList");
     if (clientList) {
         clientList.innerHTML = "";
         clients.forEach(client => {
             const clientDiv = document.createElement("div");
             clientDiv.className = "client-entry";
-
             clientDiv.innerHTML = `
                 <span>${client.clientID}: ${client.name} (${client.fitnessProgram}) - VIP: ${client.isVIP ? "Yes" : "No"}</span>
                 <button class="delete-btn" data-client-id="${client.clientID}">Delete</button>
             `;
-
             clientList.appendChild(clientDiv);
         });
-
         const deleteButtons = document.querySelectorAll(".delete-btn");
         deleteButtons.forEach(button => {
             button.addEventListener("click", (event) => {
-                const target = event.target as HTMLButtonElement;
+                const target = event.target;
                 const clientID = target.getAttribute("data-client-id");
                 if (clientID) {
                     deleteClient(clientID);
@@ -71,15 +53,12 @@ function displayClientsInUI(): void {
         });
     }
 }
-
-
 // search client
-function searchClientByID(clientID: string): Client | undefined {
+function searchClientByID(clientID) {
     return clients.find(client => client.clientID === clientID);
 }
-
 // Delete client
-function deleteClient(clientID: string): void {
+function deleteClient(clientID) {
     const index = clients.findIndex(client => client.clientID === clientID);
     if (index !== -1) {
         if (confirm(`Are you sure you want to delete client ${clientID}?`)) {
@@ -87,35 +66,31 @@ function deleteClient(clientID: string): void {
             console.log(`Client ${clientID} deleted successfully!`);
             displayClientsInUI();
         }
-    } else {
+    }
+    else {
         console.error("Client not found!");
     }
 }
-
 // form submition
-document.getElementById("clientForm")?.addEventListener("submit", event => {
+(_a = document.getElementById("clientForm")) === null || _a === void 0 ? void 0 : _a.addEventListener("submit", event => {
     event.preventDefault();
-
-    const newClient: Client = {
-        clientID: (document.getElementById("clientID") as HTMLInputElement).value,
-        name: (document.getElementById("name") as HTMLInputElement).value,
-        DOB: new Date((document.getElementById("DOB") as HTMLInputElement).value),
-        gender: Gender[(document.getElementById("gender") as HTMLSelectElement).value as keyof typeof Gender],
-        fitnessProgram: FitnessProgram[(document.getElementById("fitnessProgram") as HTMLSelectElement).value as keyof typeof FitnessProgram],
-        contactInfo: (document.getElementById("contactInfo") as HTMLInputElement).value,
-        joinedDate: new Date((document.getElementById("joinedDate") as HTMLInputElement).value),
-        endingDate: new Date((document.getElementById("endingDate") as HTMLInputElement).value),
-        specialHealthNotes: (document.getElementById("specialHealthNotes") as HTMLTextAreaElement).value,
-        isVIP: (document.getElementById("isVIP") as HTMLInputElement).checked,
+    const newClient = {
+        clientID: document.getElementById("clientID").value,
+        name: document.getElementById("name").value,
+        DOB: new Date(document.getElementById("DOB").value),
+        gender: Gender[document.getElementById("gender").value],
+        fitnessProgram: FitnessProgram[document.getElementById("fitnessProgram").value],
+        contactInfo: document.getElementById("contactInfo").value,
+        joinedDate: new Date(document.getElementById("joinedDate").value),
+        endingDate: new Date(document.getElementById("endingDate").value),
+        specialHealthNotes: document.getElementById("specialHealthNotes").value,
+        isVIP: document.getElementById("isVIP").checked,
     };
-
     addClient(newClient);
 });
-
-document.getElementById("searchForm")?.addEventListener("submit", event => {
+(_b = document.getElementById("searchForm")) === null || _b === void 0 ? void 0 : _b.addEventListener("submit", event => {
     event.preventDefault();
-
-    const searchID = (document.getElementById("searchID") as HTMLInputElement).value;
+    const searchID = document.getElementById("searchID").value;
     const client = searchClientByID(searchID);
     const searchResult = document.getElementById("searchResult");
     if (searchResult) {
@@ -124,10 +99,8 @@ document.getElementById("searchForm")?.addEventListener("submit", event => {
             : "<p>Client not found.</p>";
     }
 });
-
-
 // sample data
-function initializeData(): void {
+function initializeData() {
     clients.push({
         clientID: "1",
         name: "Test User",
@@ -142,5 +115,4 @@ function initializeData(): void {
     });
     displayClientsInUI();
 }
-
 initializeData();
