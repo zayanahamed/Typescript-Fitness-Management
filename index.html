@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Trainer App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>Personal Trainer Client Management</h1>
+
+<!-- Feedback Messages -->
+<div id="feedbackMessage" style="color: green; margin-top: 10px;"></div>
+
+<!-- Client Form -->
+<form id="clientForm">
+    <label for="clientID">Client ID</label>
+    <input type="text" id="clientID" placeholder="Client ID" required />
+
+    <label for="name">Name</label>
+    <input type="text" id="name" placeholder="Name" required />
+
+    <label for="DOB">Date of Birth</label>
+    <input type="date" id="DOB" required />
+
+    <label for="gender">Gender</label>
+    <select id="gender">
+        <option value="Female">Female</option>
+        <option value="Male">Male</option>
+        <option value="Unspecified">Unspecified</option>
+    </select>
+
+    <label for="fitnessProgram">Fitness Program</label>
+    <select id="fitnessProgram">
+        <option value="fat loss">Fat Loss</option>
+        <option value="senior fitness">Senior Fitness</option>
+        <option value="muscle gain">Muscle Gain</option>
+        <option value="pre/postnatal fitness">Pre/Postnatal Fitness</option>
+        <option value="contest preparation">Contest Preparation</option>
+        <option value="overall fitness">Overall Fitness</option>
+    </select>
+
+    <label for="contactInfo">Contact Info</label>
+    <input type="email" id="contactInfo" placeholder="Contact Info" required />
+
+    <label for="joinedDate">Joined Date</label>
+    <input type="date" id="joinedDate" required />
+
+    <label for="endingDate">Ending Date</label>
+    <input type="date" id="endingDate" required />
+
+    <label for="specialHealthNotes">Special Health Notes</label>
+    <textarea id="specialHealthNotes" placeholder="Special Health Notes"></textarea>
+
+    <label>
+        VIP Client? <input type="checkbox" id="isVIP" />
+    </label>
+
+    <button type="submit">Add Client</button>
+</form>
+
+<!-- Search Form -->
+<h2>Search Clients</h2>
+<form id="searchForm">
+    <input type="text" id="searchID" placeholder="Enter Client ID to search" required />
+    <button type="submit">Search</button>
+</form>
+<div id="searchResult"></div>
+
+<!-- Display Area -->
+<h2>Clients</h2>
+<div id="clientList"></div>
+
+<!-- VIP Clients Area -->
+<h2>VIP Clients</h2>
+<div id="vipClientList"></div>
+
+<script src="dist/script.js"></script>
+</body>
+</html>
